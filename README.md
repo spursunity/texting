@@ -1,1 +1,3 @@
-# texting
+# Test project
+
+## Name: Texting
