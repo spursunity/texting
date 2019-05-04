@@ -1,0 +1,16 @@
+.request {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+}
+
+.description {
+    width: 50%;
+    border-radius: .5rem;
+    border: 2px solid #333;
+    text-align: center;
+    min-height: 100px;
+    margin-bottom: 1rem;
+}

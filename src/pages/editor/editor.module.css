@@ -1,0 +1,31 @@
+.editor {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.previousText, .newText {
+    border: 2px solid #333;
+    margin: .3rem;
+    border-radius: .5rem;
+    padding: .7rem;
+}
+
+.previousText {
+    min-height: 150px;
+}
+
+.creatingBlock {
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+}
+
+.creatingButtons {
+    display: flex;
+    justify-content: center;
+    padding: .5rem 0;
+}

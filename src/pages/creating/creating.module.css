@@ -1,0 +1,23 @@
+.creating {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+}
+
+.creatingName, .creatingDescription {
+    border: 2px solid #333;
+    padding: .3rem;
+    width: 40%;
+    border-radius: .5rem;
+}
+
+.creatingName {
+    min-height: 3rem;
+}
+
+.creatingDescription {
+    min-height: 150px;
+    margin-bottom: 1rem;
+}

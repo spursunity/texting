@@ -1,0 +1,9 @@
+.ownProject {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.rightColumn {
+    display: grid;
+    grid-template-rows: 4fr 1fr;
+}
