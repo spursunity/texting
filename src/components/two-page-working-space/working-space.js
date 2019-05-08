@@ -7,9 +7,11 @@ import styles from './working-space.module.css';
 import Motivation from "../motivation/motivation";
 
 const WorkingSpace = props => {
+    const { pageData, projectsData } = props;
     const rightBlock = props.withBlockForCreating ? (
         <div className={ styles.rightColumn }>
-            <ProjectInfo/>
+            <ProjectInfo
+            projectsData={ projectsData }/>
             <ProjectCreate/>
         </div>
     ) : (
@@ -17,10 +19,11 @@ const WorkingSpace = props => {
     ) ;
 
     return (
-        <div className={ styles.ownProject }>
+        <div className={ styles.projects }>
             <div>
                 <ProjectsList
-                    header={ "Your own own-projects" }/>
+                pageData={ pageData }
+                projectsData={ projectsData }/>
             </div>
             { rightBlock }
         </div>
@@ -28,7 +31,9 @@ const WorkingSpace = props => {
 };
 
 WorkingSpace.propTypes = {
-    withBlockForCreating: PropTypes.bool.isRequired
+    withBlockForCreating: PropTypes.bool.isRequired,
+    pageData: PropTypes.object.isRequired,
+    projectsData: PropTypes.array.isRequired
 };
 
 export default WorkingSpace;

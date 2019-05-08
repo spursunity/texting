@@ -1,26 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './project-info.module.css';
+import {connect} from "react-redux";
 
-const ProjectInfo = props => {
+const ProjectInfo = ({selectedProjectId, projectsData}) => {
+
+    const filteredData = projectsData.filter((project) => {
+        return selectedProjectId === project.id;
+    });
+    const projectData = filteredData[0] || {};
+    const name = projectData.title || 'Name Project';
+    const description = projectData.description || 'Description';
+    const date = projectData.creatingDate || 'Date';
+    const usersArray = projectData.usersNames || [''];
+    const usersNames = usersArray.map((userName, index) => {
+        return <span key={ index }>{ userName }</span>
+    });
+
     return (
         <div className={ styles.projectInfo }>
-            <h2>Name Project</h2>
-            <p className={ styles.description }>Description</p>
-            <div>
+            <h2>{ name }</h2>
+            <p className={ styles.description }>{ description }</p>
+            <div className={ styles.usersNames }>
                 <span className={ styles.titleType }>Users:</span>
-                <span>John</span>
+                { usersNames }
             </div>
-            <div>
-                <span className={ styles.titleType }>Last Changes:</span>
-                <span>21.02.2012</span>
+            <div className={ styles.date }>
+                <span className={ styles.titleType }>Date of creation:</span>
+                <span>{ date }</span>
             </div>
         </div>
     );
 };
 
 ProjectInfo.propTypes = {
-
+    projectsData: PropTypes.array
 };
 
-export default ProjectInfo;
+function mapStateToProps(state) {
+    const projectState = state.projects;
+    return {
+        selectedProjectId: projectState.selectedProjectId
+    };
+}
+
+export default connect(mapStateToProps)(ProjectInfo);

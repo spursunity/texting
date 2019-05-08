@@ -7,12 +7,13 @@ const CancelButton = props => {
     return (
         <Button
             styleButton={ styles.cancelButton }
-            text={ 'Cancel' }/>
+            text={ 'Cancel' }
+            onClickButton={ props.onClickCancel }/>
     );
 };
 
 CancelButton.propTypes = {
-
+    onClickCancel: PropTypes.func
 };
 
 // Настоящий Ализариновый красный

@@ -3,7 +3,7 @@ const initialState = {
     userName: '',
     userEmail: '',
     userPassword: '',
-    isUserAuthorized: false,
+    isUserAuthorized: 0,
     uid: 0,
     uName: ''
 };

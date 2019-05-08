@@ -25,6 +25,6 @@ export function setNewProject() {
         ;
 
         const response = await firebase.createNewProject(uid, uName, name, description);
-        console.log(response);
+        console.log('new Project was created');
     }
 }

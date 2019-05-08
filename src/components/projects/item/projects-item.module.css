@@ -1,4 +1,4 @@
-.projectsItem {
+.projectItems {
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid #333;
@@ -6,6 +6,23 @@
     background-color: #ddd;
     border-radius: .5rem;
     margin-bottom: .5rem;
+    cursor: pointer;
+}
+
+.projectItemsSelected {
+    background-color: #333;
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    border-radius: .5rem;
+    margin-bottom: .5rem;
+    cursor: pointer;
+    padding: .5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.projectItems:hover, .projectItemsSelected:hover {
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.8);
 }
 
 .itemText {
@@ -20,4 +37,8 @@
 
 .itemButton {
     margin-left: .5rem;
+}
+
+.itemButton:hover {
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.8);
 }

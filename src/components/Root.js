@@ -9,18 +9,20 @@ import Creating from "../pages/creating/creating";
 import Invitation from "../pages/invitation/invitation";
 import OtherProjects from "../pages/other-projects/other-projects";
 import OwnProjects from "../pages/own-projects/own-projects";
+import Loading from "../pages/loading/loading";
 
 const Root = ({ store }) => (
     <Provider store={ store }>
         <Router>
             <Switch>
-                <Route exact path="/" component={ Authorization } />
-                <Route path="/editor" component={ Editor } />
-                <Route path="/request" component={ RequestParticipation } />
+                <Route exact path="/" component={ Loading } />
+                <Route path="/auth" component={ Authorization } />
+                <Route path="/editor/:id" component={ Editor } />
+                <Route path="/request/:id" component={ RequestParticipation } />
                 <Route path="/create" component={ Creating } />
                 <Route path="/own-projects" component={ OwnProjects } />
                 <Route path="/other-projects" component={ OtherProjects } />
-                <Route path="/invitation" component={ Invitation } />
+                <Route path="/invitations" component={ Invitation } />
             </Switch>
         </Router>
     </Provider>

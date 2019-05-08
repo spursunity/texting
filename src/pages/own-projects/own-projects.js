@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import WorkingSpace from "../../components/two-page-working-space/working-space";
 import {connect} from "react-redux";
-import {getIdsOwnProjects} from "../../store/actions/actions-own-projects";
+import {setIdsAndFreeData} from "../../store/actions/actions-projects";
+import {Redirect} from "react-router-dom";
 
 class OwnProjects extends Component {
     constructor(props) {
@@ -13,28 +14,44 @@ class OwnProjects extends Component {
     }
 
     render() {
+        const { props } = this;
+
+        if (props.isUserAuthorized <= 0) {
+            return <Redirect to={ '/' }/>;
+        }
+
         return (
             <WorkingSpace
+                pageData = { props.ownProjectsPage }
+                projectsData = { props.ownProjectsFreeData }
                 withBlockForCreating={ true }/>
         );
     }
 }
 
 OwnProjects.propTypes = {
-    userProjectsIds: PropTypes.array
+    userProjectsIds: PropTypes.array,
+    ownProjectsPage: PropTypes.object.isRequired,
+    ownProjectsFreeData: PropTypes.array.isRequired,
+    isUserAuthorized: PropTypes.number
 };
 
 function mapStateToProps(state) {
-    const scope = state.ownProjects;
+    const projectsState = state.projects,
+        authState = state.authorization
+    ;
     return {
-        userProjectsIds: scope.userProjectsIds
+        userProjectsIds: projectsState.userProjectsIds,
+        ownProjectsPage: projectsState.ownProjectsPage,
+        ownProjectsFreeData: projectsState.ownProjectsFreeData,
+        isUserAuthorized: authState.isUserAuthorized
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         getDatabase: () => {
-            dispatch(getIdsOwnProjects());
+            dispatch(setIdsAndFreeData());
         }
     };
 }

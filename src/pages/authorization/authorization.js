@@ -7,11 +7,11 @@ import styles from './authorization.module.css';
 import {
     changeEmail,
     changeName,
-    changePassword, setAuthHandler,
+    changePassword,
     signIn,
     signUp
 } from "../../store/actions/actions-authorization";
-import { Redirect } from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 
 class Authorization extends Component {
@@ -19,44 +19,44 @@ class Authorization extends Component {
         super(props);
     }
 
-    componentDidMount() {
-        this.props.setHandlerOnAuthStatus();
-    }
-
     render() {
         const props = this.props;
 
-        if (props.isUserAuthorized) {
-            return <Redirect to={ '/own-projects' }/>
-        } else {
-            return (<div className={ styles.authorization }>
-                    <h1>Welcome</h1>
-                    <Input
-                        name="Username"
-                        type="text"
-                        onChangeInput={ event => props.onChangeName(event) }
-                        inputValue={ props.userName }/>
-                    <Input
-                        name="Email"
-                        type="email"
-                        onChangeInput={ event => props.onChangeEmail(event) }
-                        inputValue={ props.userEmail }/>
-                    <Input
-                        name="Password"
-                        type="password"
-                        onChangeInput={ event => props.onChangePassword(event) }
-                        inputValue={ props.userPassword }/>
-                    <div className={ styles.buttonsContainer }>
+        if (props.isUserAuthorized > 0) {
+            return <Redirect to={ '/' }/>;
+        }
+
+        return (<div className={ styles.authorization }>
+                <h1>Welcome</h1>
+                <Input
+                    name="Username"
+                    type="text"
+                    onChangeInput={ event => props.onChangeName(event) }
+                    inputValue={ props.userName }/>
+                <Input
+                    name="Email"
+                    type="email"
+                    onChangeInput={ event => props.onChangeEmail(event) }
+                    inputValue={ props.userEmail }/>
+                <Input
+                    name="Password"
+                    type="password"
+                    onChangeInput={ event => props.onChangePassword(event) }
+                    inputValue={ props.userPassword }/>
+                <div className={ styles.buttonsContainer }>
+                    <Link to={ '/' }>
                         <Button
                             text="Sign in"
                             onClickButton={ props.onSignIn }/>
+                    </Link>
+                    <Link to={ '/' }>
                         <Button
                             text="Sign up"
                             onClickButton={ props.onSignUp }/>
-                    </div>
+                    </Link>
                 </div>
-            );
-        }
+            </div>
+        );
     }
 }
 
@@ -94,9 +94,6 @@ function mapDispatchToProps(dispatch) {
         },
         onChangePassword: (event) => {
             dispatch(changePassword(event));
-        },
-        setHandlerOnAuthStatus: () => {
-            dispatch(setAuthHandler());
         }
     };
 }

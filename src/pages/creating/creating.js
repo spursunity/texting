@@ -4,11 +4,15 @@ import Button from "../../components/ui/button/button";
 import styles from './creating.module.css';
 import CancelButton from "../../components/ui/button/cancel/cancel-button";
 import ContentEditable from "react-contenteditable";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {changeDescriptionProject, changeNameProject, setNewProject} from "../../store/actions/actions-creating";
 
 const Creating = props => {
+    if (props.isUserAuthorized <= 0) {
+        return <Redirect to={ '/' }/>;
+    }
+
     return (
         <div className={ styles.creating }>
             <h1>Create your own project</h1>
@@ -42,10 +46,13 @@ Creating.propTypes = {
 };
 
 function mapStateToProps(state) {
-    const scope = state.creating;
+    const creatingState = state.creating,
+        authState = state.authorization
+    ;
     return {
-        nameProject: scope.nameProject,
-        descriptionProject: scope.descriptionProject
+        nameProject: creatingState.nameProject,
+        descriptionProject: creatingState.descriptionProject,
+        isUserAuthorized: authState.isUserAuthorized
     };
 }
 

@@ -4,6 +4,7 @@
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 1rem;
+    border-left: 2px solid #333333;
 }
 
 .description {
@@ -17,4 +18,18 @@
 .titleType {
     font-weight: bold;
     margin-right: 1rem;
+}
+
+.usersNames {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.date {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }

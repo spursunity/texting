@@ -31,8 +31,8 @@ export function signUp() {
         firebase.register(name, email, password)
             .then(() => dispatch(clearInputs()))
             .catch(function(error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
+                let errorCode = error.code;
+                let errorMessage = error.message;
                 console.log(errorCode, errorMessage);
                 dispatch(clearInputs());
             })
@@ -54,10 +54,20 @@ export function signIn() {
 }
 
 export function setAuthHandler() {
-    return async (dispatch) => {
-        const userAuth = await firebase.handlerUserAuth();
-
-        dispatch(changeUserStatus(userAuth));
+    return (dispatch) => {
+        firebase.handlerUserAuth()
+            .then((authData) => {
+                if (authData !== null) {
+                    dispatch(changeUserStatus(authData, 1));
+                } else {
+                    const emptyData = {
+                        uid: '',
+                        displayName: ''
+                    };
+                    dispatch(changeUserStatus(emptyData, -1));
+                }
+            } )
+            .catch((err) => console.log(err.message) )
     }
 }
 
@@ -72,14 +82,14 @@ function clearInputs() {
   };
 }
 
-function changeUserStatus(userStatus) {
-    if (userStatus) {
+function changeUserStatus(authData, status) {
+    if (authData) {
         return {
             type: 'CHANGE_USER_STATUS',
             payload: {
-                uid: userStatus.uid,
-                uName: userStatus.displayName,
-                isUserAuthorized: !!userStatus
+                uid: authData.uid || '',
+                uName: authData.displayName || '',
+                isUserAuthorized: status
             }
         }
     }
