@@ -17,7 +17,8 @@ const initialState = {
             },
             {
                 text: 'Invite',
-                link: '/invitations'
+                link: '/invitations/',
+                dynamicLink: true
             }
         ],
         changeProjectListButton: {
@@ -39,7 +40,7 @@ const initialState = {
             link: '/own-projects'
         }
     },
-    selectedProjectId: ''
+    selectedId: ''
 };
 
 export default function projects(state = initialState, action) {
@@ -58,7 +59,7 @@ export default function projects(state = initialState, action) {
       case 'SET_SELECTED_PROJECT':
           return {
               ...state,
-              selectedProjectId: action.payload.selectedProjectId
+              selectedId: action.payload.selectedId
           };
       default:
           return state;

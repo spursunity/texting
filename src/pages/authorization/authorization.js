@@ -44,12 +44,12 @@ class Authorization extends Component {
                     onChangeInput={ event => props.onChangePassword(event) }
                     inputValue={ props.userPassword }/>
                 <div className={ styles.buttonsContainer }>
-                    <Link to={ '/' }>
+                    <Link to={ '/own-projects' }>
                         <Button
                             text="Sign in"
                             onClickButton={ props.onSignIn }/>
                     </Link>
-                    <Link to={ '/' }>
+                    <Link to={ '/own-projects' }>
                         <Button
                             text="Sign up"
                             onClickButton={ props.onSignUp }/>
@@ -65,16 +65,16 @@ Authorization.propTypes = {
     userName: PropTypes.string,
     userEmail: PropTypes.string,
     userPassword: PropTypes.string,
-    isUserAuthorized: PropTypes.bool.isRequired
+    isUserAuthorized: PropTypes.number.isRequired
 };
 
 function mapStateToProps(state) {
-    const scope = state.authorization;
+    const authState = state.authorization;
     return {
-        userName: scope.userName,
-        userEmail: scope.userEmail,
-        userPassword: scope.userPassword,
-        isUserAuthorized: scope.isUserAuthorized
+        userName: authState.userName,
+        userEmail: authState.userEmail,
+        userPassword: authState.userPassword,
+        isUserAuthorized: authState.isUserAuthorized
     };
 }
 

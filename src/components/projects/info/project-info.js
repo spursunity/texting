@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import styles from './project-info.module.css';
 import {connect} from "react-redux";
 
-const ProjectInfo = ({selectedProjectId, projectsData}) => {
+const ProjectInfo = ({selectedId, projectsData}) => {
 
     const filteredData = projectsData.filter((project) => {
-        return selectedProjectId === project.id;
+        return selectedId === project.id;
     });
     const projectData = filteredData[0] || {};
     const name = projectData.title || 'Name Project';
@@ -34,13 +34,14 @@ const ProjectInfo = ({selectedProjectId, projectsData}) => {
 };
 
 ProjectInfo.propTypes = {
-    projectsData: PropTypes.array
+    projectsData: PropTypes.array,
+    selectedId: PropTypes.string
 };
 
 function mapStateToProps(state) {
     const projectState = state.projects;
     return {
-        selectedProjectId: projectState.selectedProjectId
+        selectedId: projectState.selectedId
     };
 }
 

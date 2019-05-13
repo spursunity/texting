@@ -11,9 +11,10 @@ const OtherProjects = props => {
 
     return (
         <WorkingSpace
-        withBlockForCreating={ true }
-        pageData={ props.otherProjectsPage }
-        projectsData={ props.otherProjectsFreeData }/>
+            withBlockForCreating={ true }
+            pageData={ props.otherProjectsPage }
+            projectsData={ props.otherProjectsFreeData }
+        />
     );
 };
 

@@ -4,30 +4,41 @@ import Button from "../../ui/button/button";
 import styles from './projects-item.module.css';
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {removeUserFromProject, selectProject} from "../../../store/actions/actions-projects";
+import { selectItem } from "../../../store/actions/actions-projects";
 
-const ProjectsItem = props => {
-    const { pageData, projectsData } = props;
-
+const ProjectsItem = ({
+                          pageData,
+                          projectsData,
+                          onClickHandler,
+                          selectedId,
+                          onSelectItem
+}) => {
     const projects = projectsData.map((project, index) => {
+        const id = project.id || project.uid || '';
+
         const buttons = pageData.buttons.map(( buttonData, index ) => {
-            const projectLink = buttonData.dynamicLink ? project.id : '';
+            const projectLink = buttonData.dynamicLink ? id : '';
 
             if (buttonData.link) {
-                return  (<Link
-                    to={ buttonData.link + projectLink }
-                    key={ index }>
-                    <Button
-                        styleButton={ styles.itemButton }
-                        text={ buttonData.text }/>
-                </Link>)
+                return  (
+                    <Link
+                        to={ buttonData.link + projectLink }
+                        key={ index }
+                    >
+                        <Button
+                            styleButton={ styles.itemButton }
+                            text={ buttonData.text }
+                        />
+                    </Link>
+                )
             } else {
                 return (
                     <Button
                         key={ index }
                         styleButton={ styles.itemButton }
                         text={ buttonData.text }
-                        onClickButton={ props.onLeaveProject.bind(this, project.id) }
+                        onClickButton={ onClickHandler.bind({}, id) }
+                        // onClickButton={ onLeaveProject.bind(this, project.id) }
                     />
                 )
             }
@@ -36,18 +47,19 @@ const ProjectsItem = props => {
 
         let projectClassName = styles.projectItems;
 
-        if ( props.selectedProjectId === project.id ) {
+        if ( selectedId === id ) {
             projectClassName = styles.projectItemsSelected;
         }
 
         return (
             <div
-            className={ projectClassName }
-            key={ index }
-            onClick={ props.onSelectProject.bind(this, project.id) }>
+                className={ projectClassName }
+                key={ index }
+                onClick={ onSelectItem.bind(this, id) }
+            >
                 <div className={ styles.itemText }>
                     <span>#{ index + 1 }</span>
-                    <span>{ project.title }</span>
+                    <span>{ project.title || project.uName }</span>
                 </div>
                 <div>
                     { buttons }
@@ -65,23 +77,22 @@ const ProjectsItem = props => {
 ProjectsItem.propTypes = {
     pageData: PropTypes.object.isRequired,
     projectsData: PropTypes.array.isRequired,
-    selectedProjectId: PropTypes.string
+    selectedId: PropTypes.string,
+    onClickHandler: PropTypes.func,
+    onSelectItem: PropTypes.func
 };
 
 function mapStateToProps(state) {
-    const scope = state.projects;
+    const projectsState = state.projects;
     return {
-        selectedProjectId: scope.selectedProjectId
+        selectedId: projectsState.selectedId
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        onSelectProject: (projectId) => {
-            dispatch(selectProject(projectId));
-        },
-        onLeaveProject: (projectId) => {
-            dispatch(removeUserFromProject(projectId));
+        onSelectItem: (projectId) => {
+            dispatch(selectItem(projectId));
         }
     };
 }

@@ -1,6 +1,11 @@
 .projectCreate {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     padding: 1rem 0;
     border-top: 2px solid #ccc;
+}
+
+.createButton {
+    margin-right: 1rem;
 }

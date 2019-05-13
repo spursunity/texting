@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import WorkingSpace from "../../components/two-page-working-space/working-space";
 import {connect} from "react-redux";
-import {setIdsAndFreeData} from "../../store/actions/actions-projects";
+import {removeUserFromProject, setIdsAndFreeData} from "../../store/actions/actions-projects";
 import {Redirect} from "react-router-dom";
 
 class OwnProjects extends Component {
@@ -24,7 +24,9 @@ class OwnProjects extends Component {
             <WorkingSpace
                 pageData = { props.ownProjectsPage }
                 projectsData = { props.ownProjectsFreeData }
-                withBlockForCreating={ true }/>
+                withBlockForCreating={ true }
+                onClickHandler={ props.onLeaveProject }
+            />
         );
     }
 }
@@ -52,6 +54,9 @@ function mapDispatchToProps(dispatch) {
     return {
         getDatabase: () => {
             dispatch(setIdsAndFreeData());
+        },
+        onLeaveProject: (projectId) => {
+            dispatch(removeUserFromProject(projectId));
         }
     };
 }

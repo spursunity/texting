@@ -62,11 +62,11 @@ function pushFreeDataToState(ownProjectsFreeData, otherProjectsData) {
     }
 }
 
-export function selectProject(projectId) {
+export function selectItem(id) {
     return {
         type: 'SET_SELECTED_PROJECT',
         payload: {
-            selectedProjectId: projectId
+            selectedId: id
         }
     };
 }
@@ -84,7 +84,7 @@ export function removeUserFromProject(projectId) {
         let updatedProjectFreeData = [];
 
         if (updatedUsersIds.length === 0) {
-            const body = [];
+            const body = '';
 
             await firebase.updateProjectBody(projectId, body);
         } else {
@@ -105,4 +105,13 @@ export function removeUserFromProject(projectId) {
         await firebase.updateUsersInProject(projectId, updatedUsersIds, updatedProjectFreeData);
         dispatch(setIdsAndFreeData());
     }
+}
+
+export function clearSelectedItem() {
+    return {
+        type: 'SET_SELECTED_PROJECT',
+        payload: {
+            selectedId: ''
+        }
+    };
 }

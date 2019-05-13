@@ -19,6 +19,7 @@ class Firebase {
         this.auth = firebase.auth();
         this.db = firebase.database();
         this.usersPath = 'projects/users/';
+        this.usersArray = '/usersIds/';
         this.freeDataPath = 'projects/freeData/';
         this.mainDataPath = 'projects/mainData/';
         this.requestsPath = '/request/';
@@ -35,6 +36,12 @@ class Firebase {
           displayName: name
       })
     }
+    
+    signOut() {
+        const { auth } = this;
+
+        return auth.signOut();
+    } 
 
     handlerUserAuth() {
         return new Promise ((resolve) => {
@@ -83,11 +90,17 @@ class Firebase {
     }
 
     updateProjectBody(projectId, text) {
-        const { mainDataPath } = this;
-        const body = {
+        const { mainDataPath } = this,
+            updates = {}
+        ;
+        let body = {
             body: text
         };
-        const updates = {};
+        
+        if (!text) {
+            body = [];
+        }
+        
         updates[`${mainDataPath}${projectId}`] = body;
 
 
@@ -100,19 +113,33 @@ class Firebase {
         return this.db.ref(`${ mainDataPath }${ projectId }${ requestsPath }`).once('value');
     }
 
-    sendRequest(projectId, requests) {
+    sendRequest(projectId, uid, ownRequest) {
         const { mainDataPath, requestsPath } = this;
 
-        this.db.ref(`${ mainDataPath }${ projectId }${ requestsPath }`).set(requests);
+        this.db.ref(`${ mainDataPath }${ projectId }${ requestsPath }${ uid }`).set(ownRequest);
     }
 
     updateUsersInProject(projectId, usersIds, projectFreeData) {
-        const { usersPath, freeDataPath } = this;
+        const { usersPath, usersArray, freeDataPath } = this;
         const updates = {};
-        updates[`${usersPath}${projectId}`] = usersIds;
+        updates[`${usersPath}${projectId}${usersArray}`] = usersIds;
         updates[`${freeDataPath}${projectId}`] = projectFreeData;
 
         return this.db.ref().update(updates);
+    }
+
+    getProjectRequests(projectId) {
+        const { mainDataPath, requestsPath, db } = this;
+
+        return db.ref(`${ mainDataPath }${ projectId }${ requestsPath }`).once('value');
+    }
+
+    removeRequest(projectId, uid) {
+        const { mainDataPath, requestsPath, db } = this,
+            emptyRequest = []
+        ;
+
+        db.ref(`${ mainDataPath }${ projectId }${ requestsPath }${ uid }`).set(emptyRequest);
     }
 }
 

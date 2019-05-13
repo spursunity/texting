@@ -5,8 +5,13 @@ import styles from './editor.module.css';
 import CancelButton from "../../components/ui/button/cancel/cancel-button";
 import ContentEditable from "react-contenteditable";
 import {connect} from "react-redux";
-import {changeProjectText, getProjectBody, pushProjectChanges} from "../../store/actions/actions-editor";
+import {
+    changeProjectText,
+    getProjectBody,
+    pushProjectChanges
+} from "../../store/actions/actions-editor";
 import {Redirect} from "react-router-dom";
+import { createHashHistory } from 'history';
 
 
 class Editor extends Component {
@@ -20,7 +25,9 @@ class Editor extends Component {
     }
 
     render() {
-        const { props, id } = this;
+        const { props, id } = this,
+            ownProjectsPath = '/own-projects'
+        ;
 
         if (props.isUserAuthorized <= 0) {
             return <Redirect to={ '/' }/>;
@@ -33,10 +40,14 @@ class Editor extends Component {
                 html={ props.projectBody }
                 onChange={ props.onChangeProjectText }/>
                 <div className={ styles.buttons }>
-                    <CancelButton/>
+                    <CancelButton
+                        text={ 'Exit' }
+                        onClickCancel={ () => props.history.push(ownProjectsPath) }
+                    />
                     <Button
-                    text={ 'Accept changes' }
-                    onClickButton={ props.onPushChanges.bind(this, id) }/>
+                        text={ 'Accept changes' }
+                        onClickButton={ props.onPushChanges.bind(this, id) }
+                    />
                 </div>
             </div>
         );

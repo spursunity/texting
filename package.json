@@ -1,6 +1,7 @@
 {
   "name": "texting",
   "version": "0.1.0",
+  "homepage": "https://spursunity.github.io/texting",
   "private": true,
   "dependencies": {
     "firebase": "^5.10.0",
@@ -16,7 +17,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -28,6 +31,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "react-redux": "^7.0.2",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8"

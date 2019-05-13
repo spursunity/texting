@@ -4,11 +4,14 @@ import Button from "../button";
 import styles from './cancel-button.module.css';
 
 const CancelButton = props => {
+    const text = props.text || 'Cancel';
+
     return (
         <Button
             styleButton={ styles.cancelButton }
-            text={ 'Cancel' }
-            onClickButton={ props.onClickCancel }/>
+            text={ text }
+            onClickButton={ props.onClickCancel }
+        />
     );
 };
 

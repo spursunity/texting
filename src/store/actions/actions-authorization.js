@@ -29,7 +29,12 @@ export function signUp() {
         const email = stateAuthorization.userEmail;
         const password = stateAuthorization.userPassword;
         firebase.register(name, email, password)
-            .then(() => dispatch(clearInputs()))
+            .then((response) => {
+                const authData = response.user;
+
+                dispatch(changeUserStatus(authData, 1));
+                dispatch(clearInputs());
+            })
             .catch(function(error) {
                 let errorCode = error.code;
                 let errorMessage = error.message;
@@ -45,11 +50,32 @@ export function signIn() {
         const email = stateAuthorization.userEmail;
         const password = stateAuthorization.userPassword;
         firebase.signIn(email, password)
-            .then(() => dispatch(clearInputs()))
+            .then((response) => {
+                const authData = response.user;
+
+                dispatch(changeUserStatus(authData, 1));
+                dispatch(clearInputs());
+            })
             .catch((err) => {
-                console.log(err.message);
+                console.log('Data: ' + err.message);
                 dispatch(clearInputs())
             })
+    }
+}
+
+export function signOut() {
+    return async (dispatch) => {
+        try {
+            await firebase.signOut();
+            const emptyData = {
+                uid: '',
+                displayName: ''
+            };
+
+            dispatch(changeUserStatus(emptyData, -1));
+        } catch (err) {
+            console.log(err.message);
+        }
     }
 }
 

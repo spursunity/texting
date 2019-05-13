@@ -23,24 +23,21 @@ export function checkExistingRequests(projectId) {
     }
 }
 
-function addRequest(projectId, otherRequest) {
+function addRequest(projectId) {
     return async (dispatch, getState) => {
         try {
-            const requestState = getState().request;
-            const authorizationState = getState().authorization;
-            const motivation = requestState.motivation;
-            const uid = authorizationState.uid;
-            const uName = authorizationState.uName;
-            const ownRequest = {
-                uid,
+            const requestState = getState().request,
+                authorizationState = getState().authorization,
+                motivation = requestState.motivation,
+                uid = authorizationState.uid,
+                uName = authorizationState.uName,
+                ownRequest = {
                 uName,
                 motivation
-            };
-            const requests = otherRequest ? otherRequest : [];
+            }
+            ;
 
-            requests.push(ownRequest);
-
-            const response = await firebase.sendRequest(projectId, requests);
+            const response = await firebase.sendRequest(projectId, uid, ownRequest);
 
             dispatch(setInitialState());
         } catch (err) {
