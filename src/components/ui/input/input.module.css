@@ -2,7 +2,9 @@
     outline: none;
     padding: .7rem;
     border-radius: .7rem;
-    border-color: black;
+    border: 2px solid #3333aa;
+    color: inherit;
+    font-size: inherit;
     margin-top: .5rem;
 }
 

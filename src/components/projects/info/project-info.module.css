@@ -4,11 +4,12 @@
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 1rem;
-    border-left: 2px solid #333333;
+    border-left: 2px solid #fff;
 }
 
 .description {
-    border: 2px solid #333333;
+    border: 2px solid #3333aa;
+    background: #fff;
     border-radius: .5rem;
     width: 95%;
     min-height: 100px;

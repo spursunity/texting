@@ -16,13 +16,13 @@ const Root = ({ store }) => (
         <Router>
             <Switch>
                 <Route exact path="/" component={ Loading } />
-                <Route path="/auth" component={ Authorization } />
-                <Route path="/editor/:id" component={ Editor } />
-                <Route path="/request/:id" component={ RequestParticipation } />
-                <Route path="/create" component={ Creating } />
-                <Route path="/own-projects" component={ OwnProjects } />
-                <Route path="/other-projects" component={ OtherProjects } />
-                <Route path="/invitations/:id" component={ Invitation } />
+                <Route exact path="/auth" component={ Authorization } />
+                <Route exact path="/editor/:id" component={ Editor } />
+                <Route exact path="/request/:id" component={ RequestParticipation } />
+                <Route exact path="/create" component={ Creating } />
+                <Route exact path="/own-projects" component={ OwnProjects } />
+                <Route exact path="/other-projects" component={ OtherProjects } />
+                <Route exact path="/invitations/:id" component={ Invitation } />
             </Switch>
         </Router>
     </Provider>

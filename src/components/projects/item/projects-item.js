@@ -59,7 +59,9 @@ const ProjectsItem = ({
             >
                 <div className={ styles.itemText }>
                     <span>#{ index + 1 }</span>
-                    <span>{ project.title || project.uName }</span>
+                    <span className={ styles.projectTitle }>
+                        { project.title || project.uName }
+                    </span>
                 </div>
                 <div>
                     { buttons }

@@ -4,6 +4,7 @@ import styles from './project-manage.module.css';
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {signOut} from "../../../store/actions/actions-authorization";
+import CancelButton from "../../ui/button/cancel/cancel-button";
 
 const ProjectManage = ({ onSignOut }) => {
     return (
@@ -14,9 +15,9 @@ const ProjectManage = ({ onSignOut }) => {
                     styleButton={ styles.createButton }
                 />
             </Link>
-            <Button
+            <CancelButton
                 text={ "Sign out" }
-                onClickButton={ onSignOut }
+                onClickCancel={ onSignOut }
             />
         </div>
     );
