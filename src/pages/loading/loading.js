@@ -15,15 +15,16 @@ class Loading extends Component {
     }
 
     render() {
-        const {props} = this,
-            status = props.isUserAuthorized
-        ;
-        let path = props.location.pathname;
-        if (status > 0) {
-            path = '/' ? '/own-projects' : path ;
-            return <Redirect to={ path }/>;
-        } else if (status < 0) {
-            return <Redirect to={ '/auth' }/>;
+        const {
+            isUserAuthorized,
+            authStatuses,
+            authPath,
+            ownProjectsPath } = this.props;
+
+        if (isUserAuthorized === authStatuses.isUserAuthorized) {
+            return <Redirect to={ ownProjectsPath }/>;
+        } else if (isUserAuthorized === authStatuses.userIsUnauthorized) {
+            return <Redirect to={ authPath }/>;
         } else {
             return (
                 <div className={ styles.loading }>
@@ -38,13 +39,21 @@ class Loading extends Component {
 }
 
 Loading.propTypes = {
-    isUserAuthorized: PropTypes.number.isRequired
+    isUserAuthorized: PropTypes.number.isRequired,
+    authStatuses: PropTypes.object.isRequired,
+    authPath: PropTypes.string.isRequired,
+    ownProjectsPath: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state) {
-    const authState = state.authorization;
+    const authState = state.authorization,
+        projectsState = state.projects
+    ;
     return {
-        isUserAuthorized: authState.isUserAuthorized
+        isUserAuthorized: authState.isUserAuthorized,
+        authStatuses: authState.authStatuses,
+        authPath: authState.authPath,
+        ownProjectsPath: projectsState.ownProjectsPath
     };
 }
 

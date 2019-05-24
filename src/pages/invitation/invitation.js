@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import WorkingSpace from "../../components/two-page-working-space/working-space";
 import {connect} from "react-redux";
 import {setProjectForInvitation, setProjectRequests} from "../../store/actions/actions-invitation";
-import {Redirect} from "react-router-dom";
 import {clearSelectedItem} from "../../store/actions/actions-projects";
+import CheckUser from '../../components/hoc/check-user/check-user';
 
 
 
@@ -30,36 +30,32 @@ class Invitation extends Component {
     render() {
         const {
             invitationPage,
-            projectRequests,
-            isUserAuthorized
+            projectRequests
         } = this.props;
 
-        if (isUserAuthorized <= 0) {
-            return <Redirect to={ '/' }/>;
-        }
-
         return (
-            <WorkingSpace
-                pageData={ invitationPage }
-                projectsData={ projectRequests }
-                withBlockForCreating={ false }
-            />
+            <CheckUser>
+                <WorkingSpace
+                    pageData={ invitationPage }
+                    projectsData={ projectRequests }
+                    withBlockForCreating={ false }
+                />
+            </CheckUser>
         );
     }
 }
 
 Invitation.propTypes = {
-
+    invitationPage: PropTypes.object.isRequired,
+    projectRequests: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {
-    const invitationState = state.invitation,
-        authState = state.authorization
+    const invitationState = state.invitation
     ;
     return {
         invitationPage: invitationState.invitationPage,
-        projectRequests: invitationState.projectRequests,
-        isUserAuthorized: authState.isUserAuthorized
+        projectRequests: invitationState.projectRequests
     };
 }
 

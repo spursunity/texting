@@ -24,15 +24,14 @@ export function changePassword(event) {
 
 export function signUp() {
     return (dispatch, getState) => {
-        const stateAuthorization = getState().authorization;
-        const name = stateAuthorization.userName;
-        const email = stateAuthorization.userEmail;
-        const password = stateAuthorization.userPassword;
-        firebase.register(name, email, password)
+        const stateAuthorization = getState().authorization,
+            { userName, userEmail, userPassword, authStatuses } = stateAuthorization
+        ;
+        firebase.register(userName, userEmail, userPassword)
             .then((response) => {
                 const authData = response.user;
 
-                dispatch(changeUserStatus(authData, 1));
+                dispatch(changeUserStatus(authData, authStatuses.userIsAuthorized));
                 dispatch(clearInputs());
             })
             .catch(function(error) {
@@ -46,14 +45,14 @@ export function signUp() {
 
 export function signIn() {
     return (dispatch, getState) => {
-        const stateAuthorization = getState().authorization;
-        const email = stateAuthorization.userEmail;
-        const password = stateAuthorization.userPassword;
-        firebase.signIn(email, password)
+        const stateAuthorization = getState().authorization,
+            { userEmail, userPassword, authStatuses } = stateAuthorization
+        ;
+        firebase.signIn(userEmail, userPassword)
             .then((response) => {
                 const authData = response.user;
 
-                dispatch(changeUserStatus(authData, 1));
+                dispatch(changeUserStatus(authData, authStatuses.userIsAuthorized));
                 dispatch(clearInputs());
             })
             .catch((err) => {
@@ -64,15 +63,18 @@ export function signIn() {
 }
 
 export function signOut() {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
             await firebase.signOut();
             const emptyData = {
                 uid: '',
                 displayName: ''
-            };
+            },
+                stateAuthorization = getState().authorization,
+                { authStatuses } = stateAuthorization
+            ;
 
-            dispatch(changeUserStatus(emptyData, -1));
+            dispatch(changeUserStatus(emptyData, authStatuses.userIsUnauthorized));
         } catch (err) {
             console.log(err.message);
         }
@@ -80,17 +82,20 @@ export function signOut() {
 }
 
 export function setAuthHandler() {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const stateAuthorization = getState().authorization,
+            { authStatuses } = stateAuthorization
+        ;
         firebase.handlerUserAuth()
             .then((authData) => {
                 if (authData !== null) {
-                    dispatch(changeUserStatus(authData, 1));
+                    dispatch(changeUserStatus(authData, authStatuses.userIsAuthorized));
                 } else {
                     const emptyData = {
                         uid: '',
                         displayName: ''
                     };
-                    dispatch(changeUserStatus(emptyData, -1));
+                    dispatch(changeUserStatus(emptyData, authStatuses.userIsUnauthorized));
                 }
             } )
             .catch((err) => console.log(err.message) )

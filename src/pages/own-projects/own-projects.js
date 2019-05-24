@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import WorkingSpace from "../../components/two-page-working-space/working-space";
 import {connect} from "react-redux";
 import {removeUserFromProject, setIdsAndFreeData} from "../../store/actions/actions-projects";
-import {Redirect} from "react-router-dom";
+import CheckUser from '../../components/hoc/check-user/check-user';
 
 class OwnProjects extends Component {
     constructor(props) {
@@ -16,17 +16,15 @@ class OwnProjects extends Component {
     render() {
         const { props } = this;
 
-        if (props.isUserAuthorized <= 0) {
-            return <Redirect to={ '/' }/>;
-        }
-
         return (
-            <WorkingSpace
-                pageData = { props.ownProjectsPage }
-                projectsData = { props.ownProjectsFreeData }
-                withBlockForCreating={ true }
-                onClickHandler={ props.onLeaveProject }
-            />
+            <CheckUser>
+                <WorkingSpace
+                    pageData = { props.ownProjectsPage }
+                    projectsData = { props.ownProjectsFreeData }
+                    withBlockForCreating={ true }
+                    onClickHandler={ props.onLeaveProject }
+                />
+            </CheckUser>
         );
     }
 }

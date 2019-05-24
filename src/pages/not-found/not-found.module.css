@@ -1,0 +1,13 @@
+.pageNotFound {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #3333aa;
+}
+
+.text {
+    text-align: center;
+}

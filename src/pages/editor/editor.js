@@ -10,8 +10,7 @@ import {
     getProjectBody,
     pushProjectChanges
 } from "../../store/actions/actions-editor";
-import {Redirect} from "react-router-dom";
-import { createHashHistory } from 'history';
+import CheckUser from '../../components/hoc/check-user/check-user';
 
 
 class Editor extends Component {
@@ -29,27 +28,25 @@ class Editor extends Component {
             ownProjectsPath = '/own-projects'
         ;
 
-        if (props.isUserAuthorized <= 0) {
-            return <Redirect to={ '/' }/>;
-        }
-
         return (
-            <div className={ styles.editor }>
-                <ContentEditable
-                className={ styles.projectText }
-                html={ props.projectBody }
-                onChange={ props.onChangeProjectText }/>
-                <div className={ styles.buttons }>
-                    <CancelButton
-                        text={ 'Exit' }
-                        onClickCancel={ () => props.history.push(ownProjectsPath) }
-                    />
-                    <Button
-                        text={ 'Accept changes' }
-                        onClickButton={ props.onPushChanges.bind(this, id) }
-                    />
+            <CheckUser>
+                <div className={ styles.editor }>
+                    <ContentEditable
+                        className={ styles.projectText }
+                        html={ props.projectBody }
+                        onChange={ props.onChangeProjectText }/>
+                    <div className={ styles.buttons }>
+                        <CancelButton
+                            text={ 'Exit' }
+                            onClickCancel={ () => props.history.push(ownProjectsPath) }
+                        />
+                        <Button
+                            text={ 'Accept changes' }
+                            onClickButton={ props.onPushChanges.bind(this, id) }
+                        />
+                    </div>
                 </div>
-            </div>
+            </CheckUser>
         );
     }
 }

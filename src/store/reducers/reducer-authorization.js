@@ -5,7 +5,13 @@ const initialState = {
     userPassword: '',
     isUserAuthorized: 0,
     uid: 0,
-    uName: ''
+    uName: '',
+    authStatuses: {
+        userHasNoStatus: 0,
+        userIsAuthorized: 1,
+        userIsUnauthorized: -1
+    },
+    authPath: '/auth'
 };
 
 export default function authorization(state = initialState, action) {

@@ -40,7 +40,9 @@ const initialState = {
             link: '/own-projects'
         }
     },
-    selectedId: ''
+    selectedId: '',
+    ownProjectsPath: '/own-projects',
+    otherProjectsPath: '/other-projects'
 };
 
 export default function projects(state = initialState, action) {

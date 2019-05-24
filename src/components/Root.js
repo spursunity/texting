@@ -10,6 +10,7 @@ import Invitation from "../pages/invitation/invitation";
 import OtherProjects from "../pages/other-projects/other-projects";
 import OwnProjects from "../pages/own-projects/own-projects";
 import Loading from "../pages/loading/loading";
+import PageNotFound from "../pages/not-found/not-found";
 
 const Root = ({ store }) => (
     <Provider store={ store }>
@@ -23,6 +24,7 @@ const Root = ({ store }) => (
                 <Route exact path="/own-projects" component={ OwnProjects } />
                 <Route exact path="/other-projects" component={ OtherProjects } />
                 <Route exact path="/invitations/:id" component={ Invitation } />
+                <Route component={ PageNotFound }/>
             </Switch>
         </Router>
     </Provider>

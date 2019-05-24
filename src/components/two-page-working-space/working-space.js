@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ProjectsList from "../projects/list/projects-list";
 import ProjectInfo from "../projects/info/project-info";
-import ProjectCreate from "../projects/manage/project-manage";
 import styles from './working-space.module.css';
 import Motivation from "../motivation/motivation";
 
@@ -11,7 +10,6 @@ const WorkingSpace = ({ match, pageData, projectsData, withBlockForCreating, onC
         <div className={ styles.rightColumn }>
             <ProjectInfo
             projectsData={ projectsData }/>
-            <ProjectCreate/>
         </div>
     ) : (
         <Motivation/>

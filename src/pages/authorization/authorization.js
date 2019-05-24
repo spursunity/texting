@@ -11,7 +11,8 @@ import {
     signIn,
     signUp
 } from "../../store/actions/actions-authorization";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
+import CheckUser from '../../components/hoc/check-user/check-user';
 
 
 class Authorization extends Component {
@@ -22,40 +23,39 @@ class Authorization extends Component {
     render() {
         const props = this.props;
 
-        if (props.isUserAuthorized > 0) {
-            return <Redirect to={ '/' }/>;
-        }
-
-        return (<div className={ styles.authorization }>
-                <h1>Welcome</h1>
-                <Input
-                    name="Username"
-                    type="text"
-                    onChangeInput={ event => props.onChangeName(event) }
-                    inputValue={ props.userName }/>
-                <Input
-                    name="Email"
-                    type="email"
-                    onChangeInput={ event => props.onChangeEmail(event) }
-                    inputValue={ props.userEmail }/>
-                <Input
-                    name="Password"
-                    type="password"
-                    onChangeInput={ event => props.onChangePassword(event) }
-                    inputValue={ props.userPassword }/>
-                <div className={ styles.buttonsContainer }>
-                    <Link to={ '/own-projects' }>
-                        <Button
-                            text="Sign in"
-                            onClickButton={ props.onSignIn }/>
-                    </Link>
-                    <Link to={ '/own-projects' }>
-                        <Button
-                            text="Sign up"
-                            onClickButton={ props.onSignUp }/>
-                    </Link>
+        return (
+            <CheckUser>
+                <div className={ styles.authorization }>
+                    <h1>Welcome</h1>
+                    <Input
+                        name="Username"
+                        type="text"
+                        onChangeInput={ event => props.onChangeName(event) }
+                        inputValue={ props.userName }/>
+                    <Input
+                        name="Email"
+                        type="email"
+                        onChangeInput={ event => props.onChangeEmail(event) }
+                        inputValue={ props.userEmail }/>
+                    <Input
+                        name="Password"
+                        type="password"
+                        onChangeInput={ event => props.onChangePassword(event) }
+                        inputValue={ props.userPassword }/>
+                    <div className={ styles.buttonsContainer }>
+                        <Link to={ '/own-projects' }>
+                            <Button
+                                text="Sign in"
+                                onClickButton={ props.onSignIn }/>
+                        </Link>
+                        <Link to={ '/own-projects' }>
+                            <Button
+                                text="Sign up"
+                                onClickButton={ props.onSignUp }/>
+                        </Link>
+                    </div>
                 </div>
-            </div>
+            </CheckUser>
         );
     }
 }

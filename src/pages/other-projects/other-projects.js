@@ -2,19 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import WorkingSpace from "../../components/two-page-working-space/working-space";
 import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
+import CheckUser from '../../components/hoc/check-user/check-user';
 
 const OtherProjects = props => {
-    if (props.isUserAuthorized <= 0) {
-        return <Redirect to={ '/' }/>;
-    }
-
     return (
-        <WorkingSpace
-            withBlockForCreating={ true }
-            pageData={ props.otherProjectsPage }
-            projectsData={ props.otherProjectsFreeData }
-        />
+        <CheckUser>
+            <WorkingSpace
+                withBlockForCreating={ true }
+                pageData={ props.otherProjectsPage }
+                projectsData={ props.otherProjectsFreeData }
+            />
+        </CheckUser>
     );
 };
 
