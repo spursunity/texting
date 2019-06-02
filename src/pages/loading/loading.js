@@ -21,7 +21,7 @@ class Loading extends Component {
             authPath,
             ownProjectsPath } = this.props;
 
-        if (isUserAuthorized === authStatuses.isUserAuthorized) {
+        if (isUserAuthorized === authStatuses.userIsAuthorized) {
             return <Redirect to={ ownProjectsPath }/>;
         } else if (isUserAuthorized === authStatuses.userIsUnauthorized) {
             return <Redirect to={ authPath }/>;

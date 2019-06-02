@@ -1,29 +1,50 @@
 import React from 'react';
 import styles from './main.module.css';
 import {Link} from "react-router-dom";
-import CancelButton from "../../projects/manage/project-manage";
 import {connect} from "react-redux";
 import {signOut} from "../../../store/actions/actions-authorization";
+import CheckUser from "../check-user/check-user";
+import CancelButton from "../../ui/button/cancel/cancel-button";
+import Button from "../../ui/button/button";
 
 const Main = ({
                   children,
                   onSignOut
     }) => {
     return (
-        <div className={ styles.mainBlock }>
-            <div className={ styles.sidebar }>
-                <nav>
-                    <Link to={ '/own-projects' }>My Projects</Link>
-                    <Link to={ '/other-projects' }>Other Projects</Link>
-                    <Link to={ '/create' }>Create Project</Link>
-                </nav>
-                <CancelButton
-                    text={ "Sign out" }
-                    onClickCancel={ onSignOut }
-                />
+        <CheckUser>
+            <div className={ styles.mainBlock }>
+                <div className={ styles.sidebar }>
+                    <nav className={ styles.navigation }>
+                        <Link to={ '/own-projects' }>
+                            <Button
+                                text={ 'My projects' }
+                                styleButton={ styles.linkButton }
+                            />
+                        </Link>
+                        <Link to={ '/other-projects' }>
+                            <Button
+                                text={ 'Other projects' }
+                                styleButton={ styles.linkButton }
+                            />
+                        </Link>
+                        <Link to={ '/create' }>
+                            <Button
+                                text={ 'Create project' }
+                                styleButton={ styles.linkButton }
+                            />
+                        </Link>
+                    </nav>
+                    <CancelButton
+                        text={ "Sign out" }
+                        onClickCancel={ onSignOut }
+                    />
+                </div>
+                <div className={ styles.content }>
+                    { children }
+                </div>
             </div>
-            { children }
-        </div>
+        </CheckUser>
     );
 };
 

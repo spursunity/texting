@@ -20,11 +20,7 @@ const initialState = {
                 link: '/invitations/',
                 dynamicLink: true
             }
-        ],
-        changeProjectListButton: {
-            text: 'See other projects',
-            link: '/other-projects'
-        }
+        ]
     },
     otherProjectsPage: {
         title: 'Projects of other users',
@@ -34,11 +30,7 @@ const initialState = {
                 link: '/request/',
                 dynamicLink: true
             }
-        ],
-        changeProjectListButton: {
-            text: 'See your own projects',
-            link: '/own-projects'
-        }
+        ]
     },
     selectedId: '',
     ownProjectsPath: '/own-projects',

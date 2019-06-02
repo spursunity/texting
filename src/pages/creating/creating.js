@@ -11,11 +11,11 @@ import {
     changeNameProject,
     setNewProject
 } from "../../store/actions/actions-creating";
-import CheckUser from '../../components/hoc/check-user/check-user';
+import Main from '../../components/hoc/main/main';
 
 const Creating = props => {
     return (
-        <CheckUser>
+        <Main>
             <div className={ styles.creating }>
                 <h1>Create your own project</h1>
                 <h2>Name</h2>
@@ -39,7 +39,7 @@ const Creating = props => {
                     </Link>
                 </div>
             </div>
-        </CheckUser>
+        </Main>
     );
 };
 

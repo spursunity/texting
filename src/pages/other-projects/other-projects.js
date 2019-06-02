@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import WorkingSpace from "../../components/two-page-working-space/working-space";
 import {connect} from "react-redux";
-import CheckUser from '../../components/hoc/check-user/check-user';
+import Main from '../../components/hoc/main/main';
+import ProjectsList from "../../components/projects/list/projects-list";
 
 const OtherProjects = props => {
     return (
-        <CheckUser>
-            <WorkingSpace
-                withBlockForCreating={ true }
+        <Main>
+            <ProjectsList
                 pageData={ props.otherProjectsPage }
                 projectsData={ props.otherProjectsFreeData }
             />
-        </CheckUser>
+        </Main>
     );
 };
 

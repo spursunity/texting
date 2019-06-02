@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import WorkingSpace from "../../components/two-page-working-space/working-space";
 import {connect} from "react-redux";
 import {removeUserFromProject, setIdsAndFreeData} from "../../store/actions/actions-projects";
-import CheckUser from '../../components/hoc/check-user/check-user';
+import Main from '../../components/hoc/main/main';
+import ProjectsList from "../../components/projects/list/projects-list";
 
 class OwnProjects extends Component {
     constructor(props) {
@@ -17,14 +17,13 @@ class OwnProjects extends Component {
         const { props } = this;
 
         return (
-            <CheckUser>
-                <WorkingSpace
-                    pageData = { props.ownProjectsPage }
-                    projectsData = { props.ownProjectsFreeData }
-                    withBlockForCreating={ true }
+            <Main>
+                <ProjectsList
+                    pageData={ props.ownProjectsPage }
+                    projectsData={ props.ownProjectsFreeData }
                     onClickHandler={ props.onLeaveProject }
                 />
-            </CheckUser>
+            </Main>
         );
     }
 }
