@@ -7,13 +7,13 @@ import {Link} from "react-router-dom";
 import ContentEditable from "react-contenteditable";
 import {connect} from "react-redux";
 import {changeMotivation, checkExistingRequests, setInitialState} from "../../store/actions/actions-request";
-import CheckUser from '../../components/hoc/check-user/check-user';
+import Main from '../../components/hoc/main/main';
 
 const RequestParticipation = props => {
     const projectId = props.match.params.id;
 
     return (
-        <CheckUser>
+        <Main>
             <div className={ styles.request }>
                 <h2>Why You</h2>
                 <ContentEditable
@@ -33,7 +33,7 @@ const RequestParticipation = props => {
 
                 </div>
             </div>
-        </CheckUser>
+        </Main>
     );
 };
 

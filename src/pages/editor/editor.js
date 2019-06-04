@@ -10,7 +10,7 @@ import {
     getProjectBody,
     pushProjectChanges
 } from "../../store/actions/actions-editor";
-import CheckUser from '../../components/hoc/check-user/check-user';
+import Main from '../../components/hoc/main/main';
 
 
 class Editor extends Component {
@@ -29,7 +29,7 @@ class Editor extends Component {
         ;
 
         return (
-            <CheckUser>
+            <Main>
                 <div className={ styles.editor }>
                     <ContentEditable
                         className={ styles.projectText }
@@ -46,7 +46,7 @@ class Editor extends Component {
                         />
                     </div>
                 </div>
-            </CheckUser>
+            </Main>
         );
     }
 }

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import WorkingSpace from "../../components/two-page-working-space/working-space";
 import {connect} from "react-redux";
 import {setProjectForInvitation, setProjectRequests} from "../../store/actions/actions-invitation";
 import {clearSelectedItem} from "../../store/actions/actions-projects";
-import CheckUser from '../../components/hoc/check-user/check-user';
+import Main from '../../components/hoc/main/main';
+import ProjectsList from "../../components/projects/list/projects-list";
 
 
 
@@ -34,13 +34,12 @@ class Invitation extends Component {
         } = this.props;
 
         return (
-            <CheckUser>
-                <WorkingSpace
+            <Main>
+                <ProjectsList
                     pageData={ invitationPage }
                     projectsData={ projectRequests }
-                    withBlockForCreating={ false }
                 />
-            </CheckUser>
+            </Main>
         );
     }
 }
